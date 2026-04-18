@@ -5,16 +5,20 @@ import {
   Page,
   chromium,
   firefox,
-  webkit
+  webkit,
+  selectors 
 } from "playwright";
 
 export class CustomWorld extends World {
   browser!: Browser;
   context!: BrowserContext;
   page!: Page;
+  baseUrl: string;
+
 
   constructor(options: IWorldOptions) {
     super(options);
+    this.baseUrl = process.env.BASE_URL || 'https://www.saucedemo.com/';
   }
 
   async init() {
@@ -29,6 +33,10 @@ export class CustomWorld extends World {
 
     this.browser = await browserType.launch({ headless: false });
     this.context = await this.browser.newContext();
+    
+// ✅ CLAVE: configurar data-test como test id
+    selectors.setTestIdAttribute('data-test');
+
     this.page = await this.context.newPage();
   }
 
