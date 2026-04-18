@@ -49,4 +49,15 @@ export class YourCartPage extends BasePage {
         await expect(this.itemPrice).toHaveText(productPrice);
     }
 
+    async verifyProductWithPrice(productName: string, expectedPrice: string) {
+        const cartItem = this.page
+            .locator('.cart_item')
+            .filter({ hasText: productName });
+
+        await expect(cartItem).toBeVisible();
+
+        const priceLocator = cartItem.locator('.inventory_item_price');
+        await expect(priceLocator).toHaveText(expectedPrice);
+    }
+
 }
