@@ -233,7 +233,7 @@ npm run allure:open
 - [ ] Más escenarios funcionales
 - [ ] Integración con CI/CD
 - [ ] Soporte para más módulos
-- [ ] Tags avanzados (`@smoke`, `@regression`)
+- [x] Tags avanzados (`@smoke`, `@regression`)
 - [ ] Ejecución paralela
 - [ ] Variables y configuración externa por ambiente
 
@@ -412,7 +412,7 @@ npm run allure:open
 - [ ] More functional scenarios
 - [ ] CI/CD integration
 - [ ] Support for more modules
-- [ ] Advanced tags (`@smoke`, `@regression`)
+- [x] Advanced tags (`@smoke`, `@regression`)
 - [ ] Parallel execution
 - [ ] External environment-based configuration
 
