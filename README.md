@@ -87,6 +87,8 @@ Actualmente el proyecto cubre:
 
 - ✅ Login exitoso con usuario estándar
 - ✅ Login fallido con usuario bloqueado
+- ✅ Flujo de carrito de compras (Shopping Cart) / Checkout básico
+- ✅ Estructura con Page Object Model (POM) con pages base y componentes (TopBar)
 - ✅ Reporte HTML de Cucumber
 - ✅ Reporte JSON de Cucumber
 - ✅ Reporte JUnit XML
@@ -95,7 +97,6 @@ Actualmente el proyecto cubre:
 - ✅ Screenshots por step (opcional)
 - ✅ Ejecución por ambiente
 - ✅ Ejecución por navegador
-- ✅ Estructura con Page Object Model
 
 ---
 
@@ -137,6 +138,10 @@ Actualmente el proyecto cubre:
 #### Login negativo
 - Usuario bloqueado (`locked_out_user`)
 - Validación de mensaje de error
+
+#### Carrito de compras (Shopping Cart)
+- Agregar productos al carrito
+- Validaciones del carrito y navegación a `cart.html` / `checkout` (según escenario)
 
 ---
 
@@ -234,6 +239,8 @@ The project currently covers:
 
 - ✅ Successful login with standard user
 - ✅ Failed login with blocked user
+- ✅ Shopping cart flow (Shopping Cart) / basic checkout
+- ✅ Page Object Model (POM) with base pages and components (TopBar)
 - ✅ Cucumber HTML report
 - ✅ Cucumber JSON report
 - ✅ Cucumber JUnit XML report
@@ -242,7 +249,6 @@ The project currently covers:
 - ✅ Per-step screenshots (optional)
 - ✅ Environment-based execution
 - ✅ Browser-based execution
-- ✅ Page Object Model structure
 
 ---
 
@@ -284,6 +290,10 @@ The project currently covers:
 #### Negative login
 - Blocked user (`locked_out_user`)
 - Error message validation
+
+#### Shopping cart
+- Add products to the cart
+- Cart validations and navigation to `cart.html` / `checkout` (scenario-dependent)
 
 ---
 
