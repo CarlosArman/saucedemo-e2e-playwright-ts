@@ -1,86 +1,93 @@
-import { Given, When, Then } from '@cucumber/cucumber';
-import { ShoppingPage } from '../pages/shopping.page';
-import { TopBar } from '../pages/topbar.page';
-import { YourCartPage } from '../pages/cart.page';
-import { LoginPage } from '../pages/login.page';
-import { getLogger } from '../utils/logger';
-import { CustomWorld } from '../support/world';
+import { Given, When, Then, DataTable } from "@cucumber/cucumber";
+import { getLogger } from "../utils/logger";
+import { CustomWorld } from "../support/world";
 
-const logger = getLogger('ShoppingCartSteps');
+const logger = getLogger("shopping-cart.steps");
 
-let shoppingPage: ShoppingPage;
-let topBar: TopBar;
-let yourCartPage: YourCartPage;
-let loginPage: LoginPage;
-
-Given('el usuario ha iniciado sesión en Sauce Demo', async function (this: CustomWorld) {
-    logger.info('Iniciando sesión en Sauce Demo');
-
-    loginPage = new LoginPage(this.page);
-    await loginPage.navigate(this.baseUrl);
-    await loginPage.fillCredentials('standard_user', 'secret_sauce');
-    const screenshot = await this.page.screenshot({ fullPage: true });
-    await this.attach(screenshot, "image/png");
-    await loginPage.clickOnLogin();
+Given("el usuario se encuentra en la página de productos", async function (
+    this: CustomWorld
+) {
+    await this.shoppingPage.verifyPage();
+    logger.info("Usuario en la página de productos");
 });
 
-Given('el usuario se encuentra en la página de productos', async function () {
-    shoppingPage = new ShoppingPage(this.page);
-    await shoppingPage.verifyPage();
-
-    logger.info('Usuario en la página de productos');
+When("agrega un producto al carrito", async function (this: CustomWorld) {
+    logger.info("Agregando producto al carrito");
+    await this.shoppingPage.verifyAddRemove("Sauce Labs Backpack");
 });
 
-When('agrega un producto al carrito', async function () {
-    logger.info('Agregando producto al carrito');
-
-    shoppingPage = new ShoppingPage(this.page);
-    await shoppingPage.verifyAddRemove('Sauce Labs Backpack');
-});
-
-Then('el producto es agregado correctamente al carrito', async function () {
-    logger.info('Validando que el producto fue agregado');
-
-    topBar = new TopBar(this.page);
-    await topBar.verifyItemCount(1);
-});
-
-Then('el contador del carrito muestra la cantidad {string}', async function (cantidad: string) {
-    logger.info(`Validando contador del carrito: ${cantidad}`);
-
-    topBar = new TopBar(this.page);
-    await topBar.verifyItemCount(Number(cantidad));
-}
+Then("el producto es agregado correctamente al carrito",
+    async function (this: CustomWorld) {
+        logger.info("Validando que el producto fue agregado");
+        await this.topBar.verifyItemCount(1);
+    }
 );
 
-Given('el usuario tiene productos agregados al carrito', async function () {
-    logger.info('Asegurando que hay productos en el carrito');
+Then("el contador del carrito muestra la cantidad {string}",
+    async function (this: CustomWorld, cantidad: string) {
+        logger.info(`Validando contador del carrito: ${cantidad}`);
+        await this.topBar.verifyItemCount(Number(cantidad));
+    }
+);
 
-    shoppingPage = new ShoppingPage(this.page);
-    await shoppingPage.verifyAddRemove('Sauce Labs Backpack');
+Given("el usuario tiene productos agregados al carrito", async function (
+    this: CustomWorld
+) {
+    logger.info("Asegurando que hay productos en el carrito");
 
-    topBar = new TopBar(this.page);
-    await topBar.verifyItemCount(1);
+    await this.shoppingPage.verifyAddRemove("Sauce Labs Backpack");
+    await this.topBar.verifyItemCount(1);
 });
 
-When('accede al carrito de compras', async function () {
-    logger.info('Accediendo al carrito de compras');
-
-    topBar = new TopBar(this.page);
-    await topBar.clickCheckoutButton();
+When("accede al carrito de compras", async function (this: CustomWorld) {
+    logger.info("Accediendo al carrito de compras");
+    await this.topBar.clickCheckoutButton();
 });
 
-Then('se muestran los productos agregados en el carrito', async function () {
-    logger.info('Validando productos visibles en el carrito');
-
-    yourCartPage = new YourCartPage(this.page);
-    await yourCartPage.verifyPage();
+Then("se muestran los productos agregados en el carrito", async function (
+    this: CustomWorld
+) {
+    logger.info("Validando productos visibles en el carrito");
+    await this.yourCartPage.verifyPage();
 });
 
-Then('la información del producto es correcta', async function () {
-    logger.info('Validando información del producto');
-
-    yourCartPage = new YourCartPage(this.page);
-    await yourCartPage.verifyProductName('Sauce Labs Backpack');
-    await yourCartPage.verifyProductPrice('$29.99');
+Then("la información del producto es correcta", async function (this: CustomWorld) {
+    logger.info("Validando información del producto");
+    await this.yourCartPage.verifyProductName("Sauce Labs Backpack");
+    await this.yourCartPage.verifyProductPrice("$29.99");
 });
+
+
+When('agrega los siguientes productos al carrito:', async function (this: CustomWorld, table: DataTable) {
+    logger.info('Agregando productos al carrito');
+
+    const products = table.rows().map(row => row[0]);
+
+    for (const product of products) {
+        await this.shoppingPage.verifyAddRemove(product);
+    }
+});
+
+Then('se muestran los productos agregados en el carrito con su precio correcto:',
+    async function (this: CustomWorld, table: DataTable) {
+        logger.info('Validando productos y precios en el carrito');
+
+        await this.yourCartPage.verifyPage();
+
+        const products = table.hashes();
+
+        for (const item of products) {
+            const { producto, precio } = item;
+            await this.yourCartPage.verifyProductWithPrice(producto, precio);
+        }
+    }
+);
+
+Given( 'el usuario se encuentra en la página del carrito de compras',
+  async function (this: CustomWorld) {
+    logger.info('Navegando a la página del carrito de compras');
+
+    await this.topBar.clickCheckoutButton();
+    await this.yourCartPage.verifyPage();
+  }
+)
