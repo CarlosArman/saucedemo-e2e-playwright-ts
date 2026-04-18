@@ -159,19 +159,46 @@ npm install
 npm run test:bdd
 ```
 
-#### 3. Ejecutar con screenshots por step
+#### 3. Ejecutar por tags
+
+> Cucumber permite filtrar escenarios usando tags (ej: `@login`, `@smoke`).
+> Puedes ejecutar uno o varios tags usando la opción `--tags`.
+
+**Forma 1 (directo con cucumber-js):**
+
+```bash
+# Un tag
+npx cucumber-js --config cucumber.cjs --tags "@login"
+
+# Excluir tag
+npx cucumber-js --config cucumber.cjs --tags "not @wip"
+
+# AND / OR
+npx cucumber-js --config cucumber.cjs --tags "@smoke and @login"
+npx cucumber-js --config cucumber.cjs --tags "@smoke or @regression"
+```
+
+**Forma 2 (vía npm script + parámetros extra):**
+
+```bash
+npm run test:bdd -- --tags "@smoke"
+```
+
+#### 4. Ejecutar con screenshots por step (capturas después de cada step)
 
 ```bash
 npm run test:bdd:steps
 ```
 
-#### 4. Generar reporte Allure
+> `test:bdd:steps` ejecuta las pruebas tomando capturas automáticamente **después de cada step**.
+
+#### 5. Generar reporte Allure
 
 ```bash
 npm run allure:generate
 ```
 
-#### 5. Abrir reporte Allure
+#### 6. Abrir reporte Allure
 
 ```bash
 npm run allure:open
@@ -311,19 +338,46 @@ npm install
 npm run test:bdd
 ```
 
-#### 3. Run with per-step screenshots
+#### 3. Run by tags
+
+> Cucumber lets you filter scenarios using tags (e.g. `@login`, `@smoke`).
+> You can run one or multiple tags using the `--tags` option.
+
+**Option 1 (direct with cucumber-js):**
+
+```bash
+# Single tag
+npx cucumber-js --config cucumber.cjs --tags "@login"
+
+# Exclude tag
+npx cucumber-js --config cucumber.cjs --tags "not @wip"
+
+# AND / OR
+npx cucumber-js --config cucumber.cjs --tags "@smoke and @login"
+npx cucumber-js --config cucumber.cjs --tags "@smoke or @regression"
+```
+
+**Option 2 (via npm script + extra args):**
+
+```bash
+npm run test:bdd -- --tags "@smoke"
+```
+
+#### 4. Run with per-step screenshots (screenshots after each step)
 
 ```bash
 npm run test:bdd:steps
 ```
 
-#### 4. Generate Allure report
+> `test:bdd:steps` runs the tests taking screenshots automatically **after each step**.
+
+#### 5. Generate Allure report
 
 ```bash
 npm run allure:generate
 ```
 
-#### 5. Open Allure report
+#### 6. Open Allure report
 
 ```bash
 npm run allure:open
