@@ -1,3 +1,5 @@
+import "allure-cucumberjs";
+
 import { IWorldOptions, World, setWorldConstructor } from "@cucumber/cucumber";
 import {
   Browser,
@@ -40,7 +42,6 @@ export class CustomWorld extends World {
     this.browser = await browserType.launch({ headless: false });
     this.context = await this.browser.newContext();
 
-    // ✅ CLAVE: configurar data-test como test id
     selectors.setTestIdAttribute("data-test");
 
     this.page = await this.context.newPage();
@@ -100,20 +101,14 @@ export class CustomWorld extends World {
     }
   }
 
-  /* ✅ MÉTODO REUTILIZABLE DE LOGIN */
   async loginWithCredentials(username: string, password: string): Promise<void> {
-
     await this.loginPage.fillCredentials(username, password);
 
     const screenshot = await this.page.screenshot({ fullPage: true });
-
     await this.attach(screenshot, "image/png");
 
     await this.loginPage.clickOnLogin();
   }
-
 }
 
-if (process.env.CUCUMBER_WORKER_ID !== undefined || process.argv.some(a => a.includes("cucumber"))) {
-  setWorldConstructor(CustomWorld);
-}
+setWorldConstructor(CustomWorld);

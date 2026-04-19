@@ -2,10 +2,13 @@ import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/world";
 import { getLogger } from "../utils/logger";
+import { applyAllureContext } from "../support/allure-context";
 
 const logger = getLogger("login.steps");
 
 Given("el usuario se encuentra en la página de login de Sauce Demo", async function (this: CustomWorld) {
+  await applyAllureContext(this);
+
   logger.info("Navegando a la página de login");
 
   await this.loginPage.navigate(this.baseUrl);
@@ -33,8 +36,11 @@ Then("debería ver el mensaje de error {string}", async function (this: CustomWo
 
 
 Given("el usuario ha iniciado sesión en Sauce Demo", async function (this: CustomWorld) {
+
+  await applyAllureContext(this);
+
   logger.info("Iniciando sesión en Sauce Demo con usuario estándar");
-  
+
   await this.loginPage.navigate(this.baseUrl);
   await this.loginPage.verifyPage();
   await this.loginWithCredentials("standard_user", "secret_sauce");

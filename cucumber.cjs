@@ -1,6 +1,10 @@
 const os = require("node:os");
 const process = require("node:process");
 
+const testEnv = process.env.TEST_ENV || "qa";
+const browser = process.env.BROWSER || "chromium";
+const parallel = Number(process.env.CUCUMBER_PARALLEL || 1);
+
 module.exports = {
   default: {
     paths: ["features/**/*.feature"],
@@ -12,16 +16,16 @@ module.exports = {
     requireModule: ["ts-node/register"],
     format: [
       "progress",
-      "html:reports/cucumber/cucumber-report.html",
-      "json:reports/cucumber/cucumber-report.json",
-      "junit:reports/cucumber/cucumber-report.xml",
+      `html:reports/cucumber/${testEnv}/${browser}/cucumber-report.html`,
+      `json:reports/cucumber/${testEnv}/${browser}/cucumber-report.json`,
+      `junit:reports/cucumber/${testEnv}/${browser}/cucumber-report.xml`,
       "allure-cucumberjs/reporter"
     ],
     formatOptions: {
       resultsDir: "reports/allure-results",
       environmentInfo: {
-        "Environment": (process.env.TEST_ENV || "qa").toUpperCase(),
-        "Browser": process.env.BROWSER || "chromium",
+        "Environment": testEnv.toUpperCase(),
+        "Browser": browser,
         "Headless": process.env.HEADLESS || "false",
         "Base URL": process.env.BASE_URL || "https://www.saucedemo.com/",
         "Operating System": `${os.platform()} - ${os.release()}`,
@@ -29,6 +33,6 @@ module.exports = {
         "Executed At": new Date().toLocaleString("es-PE")
       }
     },
-    parallel: 1
+    parallel
   }
 };

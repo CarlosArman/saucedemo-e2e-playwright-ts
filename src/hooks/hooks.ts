@@ -1,9 +1,13 @@
-import { After, AfterStep, Before, Status } from "@cucumber/cucumber";
+import { After, AfterStep, Before, setDefaultTimeout, Status } from "@cucumber/cucumber";
 import { existsSync, mkdirSync } from "fs";
 import { CustomWorld } from "../support/world";
 import { getLogger } from "../utils/logger";
 
+const { DEFAULT_TIMEOUT_MS } = require("../support/cucumber");
+
 const logger = getLogger("hooks");
+
+setDefaultTimeout(DEFAULT_TIMEOUT_MS);
 
 Before(async function (this: CustomWorld) {
   logger.info("Ejecutando hook Before");
