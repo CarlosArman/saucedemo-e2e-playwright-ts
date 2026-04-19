@@ -17,6 +17,7 @@ import { YourCartPage } from "../pages/cart.page";
 import { YourInformationPage } from "../pages/checkout-your-information.page";
 import { CheckoutOverviewPage } from "../pages/checkout-overview.page";
 import { CheckoutCompletePage } from "../pages/checkout-complete.page";
+import { testConfig } from "../config/test.config";
 
 export class CustomWorld extends World {
   browser!: Browser;
@@ -26,25 +27,28 @@ export class CustomWorld extends World {
 
   constructor(options: IWorldOptions) {
     super(options);
-    this.baseUrl = process.env.BASE_URL || "https://www.saucedemo.com/";
+    this.baseUrl = testConfig.baseUrl;
   }
 
   async init() {
-    const browserName = (process.env.BROWSER || "chromium").toLowerCase();
+    try {
+      const browserType =
+        testConfig.browser === "firefox"
+          ? firefox
+          : testConfig.browser === "webkit"
+            ? webkit
+            : chromium;
 
-    const browserType =
-      browserName === "firefox"
-        ? firefox
-        : browserName === "webkit"
-          ? webkit
-          : chromium;
+      this.browser = await browserType.launch({ headless: testConfig.headless });
+      this.context = await this.browser.newContext();
 
-    this.browser = await browserType.launch({ headless: false });
-    this.context = await this.browser.newContext();
+      selectors.setTestIdAttribute("data-test");
 
-    selectors.setTestIdAttribute("data-test");
-
-    this.page = await this.context.newPage();
+      this.page = await this.context.newPage();
+    } catch (error) {
+      console.error("Error inicializando el browser:", error);
+      throw error;
+    }
   }
 
   private ensurePageReady() {
@@ -99,6 +103,8 @@ export class CustomWorld extends World {
     if (this.browser) {
       await this.browser.close();
     }
+
+    this.pages.clear();
   }
 
   async loginWithCredentials(username: string, password: string): Promise<void> {

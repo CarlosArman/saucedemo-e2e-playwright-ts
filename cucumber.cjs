@@ -1,9 +1,10 @@
 const os = require("node:os");
 const process = require("node:process");
 
-const testEnv = process.env.TEST_ENV || "qa";
+const testEnv = process.env.TEST_ENV || "dev";
 const browser = process.env.BROWSER || "chromium";
 const parallel = Number(process.env.CUCUMBER_PARALLEL || 1);
+const retry = Number(process.env.CUCUMBER_RETRY || 1);
 
 module.exports = {
   default: {
@@ -33,6 +34,7 @@ module.exports = {
         "Executed At": new Date().toLocaleString("es-PE")
       }
     },
-    parallel
+    parallel,
+    retry
   }
 };

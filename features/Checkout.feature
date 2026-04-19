@@ -21,7 +21,7 @@ Feature: Proceso de compra en Sauce Demo
     And debería ver el mensaje de confirmación "Thank you for your order!"
 
   @allure.label.story:Compra_completa_con_multiples_productos @TC_E2E_001 @regression @positive
-  Scenario Outline: Comprar múltiples productos y completar el checkout exitosamente
+  Scenario Outline: <caseId> - Comprar múltiples productos y completar el checkout exitosamente
     When agrega los siguientes productos al carrito:
       | producto     |
       | <producto_1> |
@@ -42,6 +42,6 @@ Feature: Proceso de compra en Sauce Demo
     And debería ver el mensaje de confirmación "Thank you for your order!"
 
     Examples:
-      | producto_1               | precio_1 | producto_2              | precio_2 | cantidad |
-      | Sauce Labs Onesie        | $7.99    | Sauce Labs Bike Light   | $9.99    |        2 |
-      | Sauce Labs Fleece Jacket | $49.99   | Sauce Labs Bolt T-Shirt | $15.99   |        2 |
+      | caseId      | producto_1               | precio_1 | producto_2              | precio_2 | cantidad |
+      | @TC_E2E_001_A | Sauce Labs Onesie        | $7.99    | Sauce Labs Bike Light   | $9.99    |        2 |
+      | @TC_E2E_001_B | Sauce Labs Fleece Jacket | $49.99   | Sauce Labs Bolt T-Shirt | $15.99   |        2 |

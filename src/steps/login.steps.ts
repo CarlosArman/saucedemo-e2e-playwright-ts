@@ -3,6 +3,7 @@ import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/world";
 import { getLogger } from "../utils/logger";
 import { applyAllureContext } from "../support/allure-context";
+import { testConfig } from "../config/test.config";
 
 const logger = getLogger("login.steps");
 
@@ -10,6 +11,7 @@ Given("el usuario se encuentra en la página de login de Sauce Demo", async func
   await applyAllureContext(this);
 
   logger.info("Navegando a la página de login");
+  logger.info({ baseUrl: this.baseUrl }, "URL utilizada");
 
   await this.loginPage.navigate(this.baseUrl);
   await this.loginPage.verifyPage();
@@ -39,11 +41,16 @@ Given("el usuario ha iniciado sesión en Sauce Demo", async function (this: Cust
 
   await applyAllureContext(this);
 
-  logger.info("Iniciando sesión en Sauce Demo con usuario estándar");
+  const { username, password } = testConfig.credentials;
+
+  logger.info(
+    { environment: testConfig.environment, username },
+    "Iniciando sesión usando credenciales del entorno"
+  );
+
+  logger.info({ baseUrl: this.baseUrl }, "URL utilizada");
 
   await this.loginPage.navigate(this.baseUrl);
   await this.loginPage.verifyPage();
-  await this.loginWithCredentials("standard_user", "secret_sauce");
+  await this.loginWithCredentials(username, password);
 });
-
-
