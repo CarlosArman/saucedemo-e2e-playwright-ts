@@ -4,7 +4,11 @@ const process = require("node:process");
 module.exports = {
   default: {
     paths: ["features/**/*.feature"],
-    require: ["src/**/*.ts"],
+    require: [
+      "src/support/**/*.ts",
+      "src/hooks/**/*.ts",
+      "src/steps/**/*.ts"
+    ],
     requireModule: ["ts-node/register"],
     format: [
       "progress",

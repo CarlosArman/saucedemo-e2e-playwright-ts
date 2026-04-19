@@ -22,15 +22,6 @@ export class CustomWorld extends World {
   page!: Page;
   baseUrl: string;
 
-  // Lazy page objects (initialized only when used, once per Scenario)
-  private _loginPage?: LoginPage;
-  private _shoppingPage?: ShoppingPage;
-  private _topBar?: TopBar;
-  private _yourCartPage?: YourCartPage;
-  private _yourInformationPage?: YourInformationPage;
-  private __checkoutOverviewPage?: CheckoutOverviewPage;
-  private __checkoutCompletePage?: CheckoutCompletePage;
-
   constructor(options: IWorldOptions) {
     super(options);
     this.baseUrl = process.env.BASE_URL || "https://www.saucedemo.com/";
@@ -63,39 +54,40 @@ export class CustomWorld extends World {
     }
   }
 
-  get loginPage(): LoginPage {
+  private pages = new Map<string, unknown>();
+
+  private getOrCreate<T>(key: string, factory: () => T): T {
     this.ensurePageReady();
-    return (this._loginPage ??= new LoginPage(this.page));
+    if (!this.pages.has(key)) this.pages.set(key, factory());
+    return this.pages.get(key) as T;
+  }
+
+  get loginPage(): LoginPage {
+    return this.getOrCreate("LoginPage", () => new LoginPage(this.page));
   }
 
   get shoppingPage(): ShoppingPage {
-    this.ensurePageReady();
-    return (this._shoppingPage ??= new ShoppingPage(this.page));
+    return this.getOrCreate("ShoppingPage", () => new ShoppingPage(this.page));
   }
 
   get topBar(): TopBar {
-    this.ensurePageReady();
-    return (this._topBar ??= new TopBar(this.page));
+    return this.getOrCreate("TopBar", () => new TopBar(this.page));
   }
 
   get yourCartPage(): YourCartPage {
-    this.ensurePageReady();
-    return (this._yourCartPage ??= new YourCartPage(this.page));
+    return this.getOrCreate("YourCartPage", () => new YourCartPage(this.page));
   }
 
   get yourInformationPage(): YourInformationPage {
-    this.ensurePageReady();
-    return (this._yourInformationPage ??= new YourInformationPage(this.page));
+    return this.getOrCreate("YourInformationPage", () => new YourInformationPage(this.page));
   }
 
   get checkoutOverviewPage(): CheckoutOverviewPage {
-    this.ensurePageReady();
-    return (this.__checkoutOverviewPage ??= new CheckoutOverviewPage(this.page));
+    return this.getOrCreate("CheckoutOverviewPage", () => new CheckoutOverviewPage(this.page));
   }
 
   get checkoutCompletePage(): CheckoutCompletePage {
-    this.ensurePageReady();
-    return (this.__checkoutCompletePage ??= new CheckoutCompletePage(this.page));
+    return this.getOrCreate("CheckoutCompletePage", () => new CheckoutCompletePage(this.page));
   }
 
   async close() {
@@ -110,12 +102,11 @@ export class CustomWorld extends World {
 
   /* ✅ MÉTODO REUTILIZABLE DE LOGIN */
   async loginWithCredentials(username: string, password: string): Promise<void> {
-    await this.loginPage.navigate(this.baseUrl);
-    await this.loginPage.verifyPage();
 
     await this.loginPage.fillCredentials(username, password);
 
     const screenshot = await this.page.screenshot({ fullPage: true });
+
     await this.attach(screenshot, "image/png");
 
     await this.loginPage.clickOnLogin();
@@ -123,4 +114,6 @@ export class CustomWorld extends World {
 
 }
 
-setWorldConstructor(CustomWorld);
+if (process.env.CUCUMBER_WORKER_ID !== undefined || process.argv.some(a => a.includes("cucumber"))) {
+  setWorldConstructor(CustomWorld);
+}

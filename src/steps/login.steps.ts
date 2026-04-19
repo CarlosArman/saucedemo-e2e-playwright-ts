@@ -34,7 +34,9 @@ Then("debería ver el mensaje de error {string}", async function (this: CustomWo
 
 Given("el usuario ha iniciado sesión en Sauce Demo", async function (this: CustomWorld) {
   logger.info("Iniciando sesión en Sauce Demo con usuario estándar");
-
+  
+  await this.loginPage.navigate(this.baseUrl);
+  await this.loginPage.verifyPage();
   await this.loginWithCredentials("standard_user", "secret_sauce");
 });
 

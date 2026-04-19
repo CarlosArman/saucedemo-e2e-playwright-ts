@@ -22,6 +22,10 @@ After(async function (this: CustomWorld, scenario) {
   logger.info({ status: scenario.result?.status }, "Estado del escenario");
 
   if (scenario.result?.status === Status.FAILED) {
+
+    await this.attach(this.page.url(), "text/plain");
+    logger.info("URL adjuntado correctamente");
+
     const safeName = scenario.pickle.name.replace(/[^a-zA-Z0-9-_]/g, "_");
     const filePath = `reports/screenshots/FAILED-${safeName}.png`;
 
@@ -32,8 +36,11 @@ After(async function (this: CustomWorld, scenario) {
       fullPage: true
     });
 
-    await Promise.resolve(this.attach(screenshot, "image/png"));
+    await this.attach(screenshot, "image/png");
     logger.info("Screenshot adjuntado correctamente");
+
+    await this.attach(await this.page.content(), "text/html");
+    logger.info("HTML adjuntado correctamente");
   }
 
   await this.close();
@@ -65,5 +72,5 @@ AfterStep(async function (this: CustomWorld, step) {
     fullPage: false
   });
 
-  await Promise.resolve(this.attach(screenshot, "image/png"));
+  this.attach(screenshot, "image/png");
 });
