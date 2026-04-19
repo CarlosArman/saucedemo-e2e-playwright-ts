@@ -6,6 +6,7 @@
   "scripts": {
     "report:clean": "rimraf reports",
     "test:bdd": "npm run report:clean && cucumber-js --config cucumber.cjs",
+   "test:bdd:steps": "npm run report:clean && cross-env STEP_SCREENSHOT=true cucumber-js --config cucumber.cjs",
     "test:bdd:qa:chrome": "npm run report:clean && cross-env TEST_ENV=qa BROWSER=chromium STEP_SCREENSHOT=true cucumber-js --config cucumber.cjs",
     "test:bdd:qa:firefox": "npm run report:clean && cross-env TEST_ENV=qa BROWSER=firefox cucumber-js --config cucumber.cjs",
     "test:bdd:prod:chrome": "npm run report:clean && cross-env TEST_ENV=prod BROWSER=chromium cucumber-js --config cucumber.cjs",
