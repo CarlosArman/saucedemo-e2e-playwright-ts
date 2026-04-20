@@ -1,423 +1,272 @@
 <h1 align="center">SauceDemo Playwright Cucumber TypeScript Automation</h1>
 
 <p align="center">
+  <a href="https://github.com/CarlosArman/saucedemo-e2e-playwright-ts">
+    <img src="https://img.shields.io/badge/Version-v2.0.0-blue" alt="Version" />
+  </a>
+  <img src="https://img.shields.io/badge/Architecture-Enterprise%20Ready-success" alt="Architecture" />
   <a href="https://playwright.dev/">
-    <img src="https://img.shields.io/badge/Playwright-E2E-45ba4b" />
+    <img src="https://img.shields.io/badge/Playwright-E2E-45ba4b" alt="Playwright" />
   </a>
   <a href="https://cucumber.io/">
-    <img src="https://img.shields.io/badge/Cucumber-BDD-23D96C" />
+    <img src="https://img.shields.io/badge/Cucumber-BDD-23D96C" alt="Cucumber" />
   </a>
   <a href="https://www.typescriptlang.org/">
-    <img src="https://img.shields.io/badge/TypeScript-5%2B-3178C6" />
+    <img src="https://img.shields.io/badge/TypeScript-5%2B-3178C6" alt="TypeScript" />
   </a>
   <a href="https://allurereport.org/">
-    <img src="https://img.shields.io/badge/Allure-Report-8E24AA" />
+    <img src="https://img.shields.io/badge/Allure-Report-8E24AA" alt="Allure" />
   </a>
-  <a href="#">
-    <img src="https://img.shields.io/badge/Testing-E2E-1E88E5" />
-  </a>
-  <a href="#">
-    <img src="https://img.shields.io/badge/Architecture-POM-6A1B9A" />
-  </a>
-  <a href="#">
-    <img src="https://img.shields.io/badge/Status-In%20Progress-yellow" />
-  </a>
-  <a href="https://github.com/CarlosArman/saucedemo-e2e-playwright-ts/commits/main">
-    <img src="https://img.shields.io/github/last-commit/CarlosArman/saucedemo-e2e-playwright-ts" />
-  </a>
-  <a href="https://github.com/CarlosArman/saucedemo-e2e-playwright-ts">
-    <img src="https://img.shields.io/github/repo-size/CarlosArman/saucedemo-e2e-playwright-ts" />
-  </a>
+</p>
+
+<p align="center"><b>🌐 Language / Idioma</b></p>
+<p align="center">
+  🇬🇧 English &nbsp; | &nbsp;
+  <a href="./README.es.md">🇪🇸 Español</a>
 </p>
 
 <p align="center">
-  <a href="https://www.saucedemo.com/">
-    <img src="https://img.shields.io/badge/SauceDemo-Web%20App-F57C00" />
-  </a>
+  Enterprise-ready QA automation framework for SauceDemo, built to showcase scalable E2E test design, maintainability, observability, and execution flexibility with Playwright + Cucumber + TypeScript.
 </p>
 
 ---
 
-## 📌 Summary / Resumen
+## 🎯 Why This Project Matters
 
-### 🇪🇸 Resumen
+This repository is designed as a **QA Automation portfolio project** that demonstrates more than just automated test cases. It shows how to structure a maintainable framework with:
 
-Proyecto de automatización de pruebas **E2E** construido con **Playwright + Cucumber + TypeScript** para **SauceDemo**, con una estructura basada en **Page Object Model (POM)** y enfoque **BDD**.
+- **BDD with Cucumber** for readable business scenarios
+- **Page Object Model (POM)** for maintainability and reuse
+- **Multi-environment execution** (`DEV`, `UAT`, `PROD`)
+- **Multi-browser coverage** (`chromium`, `firefox`, `webkit`)
+- **Allure + Cucumber reporting** for evidence and traceability
+- **Tracing, screenshots, and logs** for failure analysis
+- **Parallel and sequential execution strategies**
+- **Scalable project structure** ready for CI/CD growth
 
-Actualmente incluye escenarios de **login exitoso y fallido**, reportes en **Cucumber HTML / JSON / JUnit**, integración con **Allure Report**, manejo de **screenshots**, soporte para **ambientes y navegadores**, y una estructura preparada para escalar.
-
-### 🇺🇸 Summary
-
-E2E test automation project built with **Playwright + Cucumber + TypeScript** for **SauceDemo**, using a **Page Object Model (POM)** structure and a **BDD** approach.
-
-It currently includes **successful and failed login** scenarios, **Cucumber HTML / JSON / JUnit** reports, **Allure Report** integration, **screenshots**, support for **environments and browsers**, and a structure ready to scale.
-
----
-
-<p align="center">
-  <a href="#english">🇺🇸 English</a> | <a href="#espanol">🇪🇸 Español</a>
-</p>
+This project demonstrates QA automation best practices with Playwright, Cucumber, and TypeScript, including maintainable architecture, debugging support, reporting, reusable automation design, and framework scalability.
 
 ---
 
-<a id="espanol"></a>
+## 🚀 Project Overview
 
-## 🇪🇸 Español
-
-### Descripción
-
-Proyecto de automatización E2E para **SauceDemo** usando:
+This repository contains an end-to-end automation framework for **SauceDemo** using:
 
 - **Playwright**
 - **Cucumber**
 - **TypeScript**
 - **Allure Report**
-- **Cucumber Reports**
 - **Page Object Model**
+- **Structured logging and execution hooks**
 
-🔗 **Aplicación bajo prueba:** https://www.saucedemo.com/
-
-🔗 **Repositorio:** https://github.com/CarlosArman/saucedemo-e2e-playwright-ts
-
----
-
-### Alcance actual
-
-Actualmente el proyecto cubre:
-
-- ✅ Login exitoso con usuario estándar
-- ✅ Login fallido con usuario bloqueado
-- ✅ Flujo de carrito de compras (Shopping Cart) / Checkout básico
-- ✅ Estructura con Page Object Model (POM) con pages base y componentes (TopBar)
-- ✅ Reporte HTML de Cucumber
-- ✅ Reporte JSON de Cucumber
-- ✅ Reporte JUnit XML
-- ✅ Reporte Allure
-- ✅ Screenshots en fallos
-- ✅ Screenshots por step (opcional)
-- ✅ Ejecución por ambiente
-- ✅ Ejecución por navegador
-
----
-
-### Estructura del proyecto
-
-```bash
-.
-├── features/                # Escenarios Gherkin
-├── src/
-│   ├── hooks/               # Hooks Before / After / AfterStep
-│   ├── pages/               # Page Object Model
-│   ├── steps/               # Step Definitions
-│   ├── support/             # World y configuración compartida
-│   └── utils/               # Logger y utilidades
-├── reports/                 # Reportes y evidencias generadas
-├── cucumber.cjs             # Configuración de Cucumber
-├── package.json
-└── README.md
-```
-
----
-
-### Tecnologías utilizadas
-
-- **Playwright** → automatización E2E
-- **Cucumber** → BDD / Gherkin
-- **TypeScript** → tipado y mantenibilidad
-- **Allure Report** → reporte visual
-- **Cucumber HTML / JSON / JUnit** → evidencias y CI/CD
-
----
-
-### Escenarios actuales
-
-#### Login positivo
-- Usuario válido (`standard_user`)
-- Validación de navegación a `inventory.html`
-
-#### Login negativo
-- Usuario bloqueado (`locked_out_user`)
-- Validación de mensaje de error
-
-#### Carrito de compras (Shopping Cart)
-- Agregar productos al carrito
-- Validaciones del carrito y navegación a `cart.html` / `checkout` (según escenario)
-
----
-
-### Ejecución del proyecto
-
-#### 1. Instalar dependencias
-
-```bash
-npm install
-```
-
-#### 2. Ejecutar pruebas
-
-```bash
-npm run test:bdd
-```
-
-#### 3. Ejecutar por tags
-
-> Cucumber permite filtrar escenarios usando tags (ej: `@login`, `@smoke`).
-> Puedes ejecutar uno o varios tags usando la opción `--tags`.
-
-**Forma 1 (directo con cucumber-js):**
-
-```bash
-# Un tag
-npx cucumber-js --config cucumber.cjs --tags "@login"
-
-# Excluir tag
-npx cucumber-js --config cucumber.cjs --tags "not @wip"
-
-# AND / OR
-npx cucumber-js --config cucumber.cjs --tags "@smoke and @login"
-npx cucumber-js --config cucumber.cjs --tags "@smoke or @regression"
-```
-
-**Forma 2 (vía npm script + parámetros extra):**
-
-```bash
-npm run test:bdd -- --tags "@smoke"
-```
-
-#### 4. Ejecutar con screenshots por step (capturas después de cada step)
-
-```bash
-npm run test:bdd:steps
-```
-
-> `test:bdd:steps` ejecuta las pruebas tomando capturas automáticamente **después de cada step**.
-
-#### 5. Generar reporte Allure
-
-```bash
-npm run allure:generate
-```
-
-#### 6. Abrir reporte Allure
-
-```bash
-npm run allure:open
-```
-
----
-
-### Reportes disponibles
-
-- **Cucumber HTML**
-- **Cucumber JSON**
-- **Cucumber JUnit XML**
-- **Allure Report**
-
----
-
-### Características implementadas
-
-- Page Object Model
-- Hooks de ejecución
-- Screenshots automáticos
-- Logging
-- Configuración por ambiente
-- Configuración por navegador
-- Metadata en reportes
-- Preparado para integración continua
-
----
-
-### Mejoras futuras
-
-- [x] Más escenarios funcionales
-- [ ] Integración con CI/CD
-- [x] Soporte para más módulos
-- [x] Tags avanzados (`@smoke`, `@regression`)
-- [ ] Ejecución paralela
-- [x] Variables y configuración externa por ambiente
-
----
-
-<a id="english"></a>
-
-## 🇺🇸 English
-
-### Description
-
-E2E automation project for **SauceDemo** using:
-
-- **Playwright**
-- **Cucumber**
-- **TypeScript**
-- **Allure Report**
-- **Cucumber Reports**
-- **Page Object Model**
-
-🔗 **Application under test:** https://www.saucedemo.com/
-
+🔗 **Application under test:** https://www.saucedemo.com/  
 🔗 **Repository:** https://github.com/CarlosArman/saucedemo-e2e-playwright-ts
 
 ---
 
-### Current scope
+## ✨ What This Framework Demonstrates
 
-The project currently covers:
+### Functional Coverage
+- ✅ Successful login
+- ✅ Failed login
+- ✅ Shopping cart flow
+- ✅ Basic checkout validation
 
-- ✅ Successful login with standard user
-- ✅ Failed login with blocked user
-- ✅ Shopping cart flow (Shopping Cart) / basic checkout
-- ✅ Page Object Model (POM) with base pages and components (TopBar)
-- ✅ Cucumber HTML report
-- ✅ Cucumber JSON report
-- ✅ Cucumber JUnit XML report
-- ✅ Allure report
-- ✅ Screenshots on failure
-- ✅ Per-step screenshots (optional)
-- ✅ Environment-based execution
-- ✅ Browser-based execution
+### Engineering Practices
+- ✅ Page Object Model architecture
+- ✅ Environment-aware execution
+- ✅ Browser-aware execution
+- ✅ Failure evidence generation
+- ✅ Allure reporting
+- ✅ Retry-ready and parallel-ready execution
+- ✅ Clear separation of hooks, configuration, pages, steps, and utilities
+
+### QA Portfolio Value
+- ✅ Test design with maintainability in mind
+- ✅ Practical reporting strategy
+- ✅ Execution flexibility across environments and browsers
+- ✅ Clean documentation and project organization
+- ✅ Ready to evolve into CI/CD pipelines
 
 ---
 
-### Project structure
+## 🏗 Project Structure
 
 ```bash
-.
-├── features/                # Gherkin scenarios
+saucedemo-e2e-playwright-ts
+├── features/                # Gherkin feature files and business-readable scenarios
 ├── src/
-│   ├── hooks/               # Before / After / AfterStep hooks
-│   ├── pages/               # Page Object Model
-│   ├── steps/               # Step Definitions
-│   ├── support/             # World and shared configuration
-│   └── utils/               # Logger and utilities
-├── reports/                 # Generated reports and evidence
-├── cucumber.cjs             # Cucumber configuration
-├── package.json
-└── README.md
+│   ├── config/              # Environment configuration and runtime settings
+│   ├── hooks/               # Browser lifecycle, screenshots, tracing, and reporting hooks
+│   ├── pages/               # Page Object Model and reusable UI components
+│   ├── steps/               # Step definitions that map Gherkin steps to automation logic
+│   ├── support/             # Custom World, shared setup, and test context management
+│   └── utils/               # Logger, helpers, and reusable utility functions
+├── reports/                 # Generated reports, screenshots, traces, and execution evidence
+├── docs/                    # Additional project documentation
+├── cucumber.cjs             # Cucumber configuration file
+├── CHANGELOG.md             # Project changelog
+├── CONTRIBUTING.md          # Contribution guide
+├── package.json             # Project scripts, dependencies, and npm configuration
+├── README.md                # Main documentation in English
+└── README.es.md             # Main documentation in Spanish
 ```
 
 ---
 
-### Technologies used
+## ⚙ Quick Start
 
-- **Playwright** → E2E automation
-- **Cucumber** → BDD / Gherkin
-- **TypeScript** → typing and maintainability
-- **Allure Report** → visual reporting
-- **Cucumber HTML / JSON / JUnit** → evidence and CI/CD support
+### 1. Clone the repository
 
----
+```bash
+git clone https://github.com/CarlosArman/saucedemo-e2e-playwright-ts.git
+cd saucedemo-e2e-playwright-ts
+```
 
-### Current scenarios
-
-#### Positive login
-- Valid user (`standard_user`)
-- Navigation validation to `inventory.html`
-
-#### Negative login
-- Blocked user (`locked_out_user`)
-- Error message validation
-
-#### Shopping cart
-- Add products to the cart
-- Cart validations and navigation to `cart.html` / `checkout` (scenario-dependent)
-
----
-
-### Run the project
-
-#### 1. Install dependencies
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-#### 2. Run tests
+### 3. Install Playwright browsers
+
+```bash
+npx playwright install
+```
+
+### 4. Configure environment variables
+
+See:
+- **[docs/ENVIRONMENT.md](./docs/ENVIRONMENT.md)**
+- **[docs/ENVIRONMENT.es.md](./docs/ENVIRONMENT.es.md)**
+
+### 5. Run tests
 
 ```bash
 npm run test:bdd
 ```
 
-#### 3. Run by tags
+---
 
-> Cucumber lets you filter scenarios using tags (e.g. `@login`, `@smoke`).
-> You can run one or multiple tags using the `--tags` option.
+## ▶ Main Commands
 
-**Option 1 (direct with cucumber-js):**
-
-```bash
-# Single tag
-npx cucumber-js --config cucumber.cjs --tags "@login"
-
-# Exclude tag
-npx cucumber-js --config cucumber.cjs --tags "not @wip"
-
-# AND / OR
-npx cucumber-js --config cucumber.cjs --tags "@smoke and @login"
-npx cucumber-js --config cucumber.cjs --tags "@smoke or @regression"
-```
-
-**Option 2 (via npm script + extra args):**
+The primary README should expose only the most important commands.
+For the full catalog, see **[docs/COMMANDS.md](./docs/COMMANDS.md)** and **[docs/COMMANDS.es.md](./docs/COMMANDS.es.md)**.
 
 ```bash
-npm run test:bdd -- --tags "@smoke"
-```
-
-#### 4. Run with per-step screenshots (screenshots after each step)
-
-```bash
+npm install
+npx playwright install
+npm run test:bdd
 npm run test:bdd:steps
-```
-
-> `test:bdd:steps` runs the tests taking screenshots automatically **after each step**.
-
-#### 5. Generate Allure report
-
-```bash
+npm run test:dev:chrome
+npm run test:dev:all
+npm run test:dev:all:parallel
+npm run test:dev:report
 npm run allure:generate
-```
-
-#### 6. Open Allure report
-
-```bash
 npm run allure:open
 ```
 
 ---
 
-### Available reports
+## 📊 Reporting and Observability
 
-- **Cucumber HTML**
-- **Cucumber JSON**
-- **Cucumber JUnit XML**
+This framework includes multiple layers of execution evidence:
+
+- **Cucumber HTML report**
+- **Cucumber JSON report**
+- **Cucumber JUnit XML report**
 - **Allure Report**
+- **Screenshots on failure**
+- **Optional step-by-step screenshots**
+- **Playwright trace files**
+- **Structured logging**
+- **Scenario-level correlation support**
+
+Common commands:
+
+```bash
+npm run allure:generate
+npm run allure:open
+```
 
 ---
 
-### Implemented features
+## 🧠 Architecture Snapshot
 
-- Page Object Model
-- Execution hooks
-- Automatic screenshots
-- Logging
-- Environment configuration
-- Browser configuration
-- Report metadata
-- CI-ready structure
+The framework is organized around separation of concerns:
 
----
+- **`features/`** → business-readable scenarios
+- **`steps/`** → step definitions
+- **`pages/`** → UI interaction abstraction
+- **`hooks/`** → browser lifecycle and reporting lifecycle
+- **`config/`** → environment-based configuration
+- **`support/`** → shared test context / world
+- **`utils/`** → logging and reusable helpers
 
-### Future improvements
-
-- [x] More functional scenarios
-- [ ] CI/CD integration
-- [x] Support for more modules
-- [x] Advanced tags (`@smoke`, `@regression`)
-- [ ] Parallel execution
-- [x] External environment-based configuration
+For full architecture details, see:
+- **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)**
+- **[docs/ARCHITECTURE.es.md](./docs/ARCHITECTURE.es.md)**
 
 ---
 
-## 👨‍💻 Author / Autor
+## 🔗 Related Project
 
-**Carlos Ruiz**
+If you would like to see a related automation project built in the **Java ecosystem**, check out:
+
+### [PlaywrightJava](https://github.com/CarlosArman/PlaywrightJava)
+
+A related automation project implemented with:
+
+- **Java**
+- **Maven**
+- **JUnit 5**
+- **Allure Report**
+- **Page Object Model (POM)**
+
+This helps show the same automation mindset across different stacks: **TypeScript + Cucumber** in this repository and **Java + JUnit 5** in the related one.
+
+---
+
+## 📚 Documentation Index
+
+### Core docs
+- **[docs/COMMANDS.md](./docs/COMMANDS.md)** → Commands reference (English)
+- **[docs/COMMANDS.es.md](./docs/COMMANDS.es.md)** → Commands reference (Spanish)
+- **[docs/ENVIRONMENT.md](./docs/ENVIRONMENT.md)** → Environment guide (English)
+- **[docs/ENVIRONMENT.es.md](./docs/ENVIRONMENT.es.md)** → Environment guide (Spanish)
+- **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** → Architecture guide (English)
+- **[docs/ARCHITECTURE.es.md](./docs/ARCHITECTURE.es.md)** → Architecture guide (Spanish)
+
+### Repository docs
+- **[CHANGELOG.md](./CHANGELOG.md)** → Project changelog (English)
+- **[CHANGELOG.es.md](./CHANGELOG.es.md)** → Historial de cambios (Español)
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** → Contribution guide (English)
+- **[CONTRIBUTING.es.md](./CONTRIBUTING.es.md)** → Guía de contribución (Español)
+
+---
+
+## 🛣 Roadmap
+
+- [ ] Complete CI/CD pipeline integration
+- [ ] Broader functional coverage
+- [ ] Remote/cloud execution strategy
+- [ ] Execution dashboards
+- [ ] Stronger observability conventions
+- [ ] More reusable business modules
+
+---
+
+## 👨‍💻 Author
+
+**Carlos R.**  
+QA | Test Automation Engineer
+<br/>
+🔗 GitHub: https://github.com/CarlosArman
+
+
+---
+
+## ⭐ Final Note
+
+This project is intentionally documented and organized to reflect not only test automation capability, but also **engineering maturity in QA automation design**.
