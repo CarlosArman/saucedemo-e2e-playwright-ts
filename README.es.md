@@ -18,7 +18,6 @@
     <img src="https://img.shields.io/badge/Allure-Report-8E24AA" alt="Allure" />
   </a>
 </p>
-<hr/>
 
 <p align="center"><b>🌐 Idioma</b></p>
 <p align="center">
