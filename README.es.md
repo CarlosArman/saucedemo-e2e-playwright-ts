@@ -25,7 +25,6 @@
   <a href="./README.md">🇬🇧 English</a> &nbsp; | &nbsp;
   🇪🇸 Español
 </p>
-<hr/>
 
 <p align="center">
   Framework enterprise-ready de automatización QA para SauceDemo, creado para demostrar diseño escalable de pruebas E2E, mantenibilidad, observabilidad y flexibilidad de ejecución con Playwright + Cucumber + TypeScript.
